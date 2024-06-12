@@ -21,13 +21,10 @@ func Start() {
 	parseFlag()
 	*language = strings.ToLower(*language)
 	if *language == "java" {
-
 		Java_Codeing()
-
 	}
 
 	if *language == "php" {
-
 		PHP_Codeing()
 	}
 
