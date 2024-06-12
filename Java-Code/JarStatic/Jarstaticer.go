@@ -38,7 +38,7 @@ func Jarstaticer(dir string) {
 	// 读取 EvilJarList.txt 文件中的每一行
 	configLines, err := ioutil.ReadFile("EvilJarList.txt")
 	if err != nil {
-		fmt.Println("Error reading config.txt:", err)
+		fmt.Println("Error reading EvilJarList.txt:", err)
 		return
 	}
 	lines := strings.Split(string(configLines), "\n")

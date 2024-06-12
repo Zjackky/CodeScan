@@ -78,10 +78,12 @@ var PathBlackJava = []string{
 
 
 # 想法
-1. 根据Jar进行分析
+1. 根据Jar进行分析(默认分析)
 
 + mysqlconnect-->jdbc
 + Xstream --> xml/json
+
+tips: 只需要在CodeScan的目录下放入EvilJarList.txt即可匹配出来
 
 2. 进行融于鉴权代码的快速匹配抓取
 
@@ -94,5 +96,11 @@ var PathBlackJava = []string{
 此时可以用一下功能来进行快速获取未鉴权代码
 
 ```bash
-CodeScan_windows_amd64.exe -m "<%@ include file="../../common/js/CheckSession.jsp"%>" -o ./src
+CodeScan_windows_amd64.exe -d ./yuan -m "<%@ include file="../../common/js/CheckSession.jsp"%>"
+<%@ include file="../../common/js/CheckSession.jsp"%>
+<%@ include file="../../../common/jsp/CheckSession.jsp"%>
+```
+然后可以再扫一遍就可以立刻定位到存在未鉴权并且存在Sink点的函数文件了
+```bash
+CodeScan_windows_amd64.exe -L java -d ./NoAuthDir
 ```

@@ -3,10 +3,29 @@ package Filter
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"strings"
 )
+
+// CopyFile 函数用于复制单个文件
+func CopyFile(dstName, srcName string) (err error) {
+	src, err := os.Open(srcName)
+	if err != nil {
+		return
+	}
+	defer src.Close()
+
+	dst, err := os.Create(dstName)
+	if err != nil {
+		return
+	}
+	defer dst.Close()
+
+	_, err = io.Copy(dst, src)
+	return
+}
 
 func FilterFile(filterContent string, dir string) {
 	outfile := "FilterResult.txt"
@@ -37,7 +56,7 @@ func FilterFile(filterContent string, dir string) {
 		// 获取文件扩展名
 		ext := filepath.Ext(path)
 		// 仅处理后缀为jsp, java, php的文件
-		if ext == ".jsp" || ext == ".java" || ext == ".php" {
+		if ext == ".jsp" || ext == ".php" {
 			file, err := os.Open(path)
 			if err != nil {
 				return err
@@ -56,6 +75,22 @@ func FilterFile(filterContent string, dir string) {
 			// 如果文件不包含filterContent，则写入结果文件
 			if !containsContent {
 				absPath, err := filepath.Abs(path)
+
+				destDir := "./NoAuthDir"
+				if _, err := os.Stat(destDir); os.IsNotExist(err) {
+					err := os.MkdirAll(destDir, 0755)
+					if err != nil {
+						return err
+					}
+				}
+
+				// 复制文件到NoAuthDir目录
+				destFileName := "./NoAuthDir/" + filepath.Base(absPath)
+				err = CopyFile(destFileName, absPath)
+				if err != nil {
+					return err
+				}
+
 				if err != nil {
 					return err
 				}
