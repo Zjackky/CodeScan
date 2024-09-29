@@ -1,5 +1,5 @@
 # CodeScan
-
+![image](https://socialify.git.ci/Zjackky/CodeScan/image?description=1&font=Inter&forks=1&issues=1&language=1&logo=https%3A%2F%2Fzjacky-blog.oss-cn-beijing.aliyuncs.com%2Fblog%2F202401021003754.jpg&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Light)
 ## 工具概述
 
 该工具目的为对大多数不完整的代码以及依赖快速进行Sink点匹配来帮助红队完成快速代码审计，开发该工具的初衷是以`Sink`​到`Source`​的思路来开发，为了将所有可疑的Sink点匹配出来并且凭借第六感进行快速漏洞挖掘，并且该工具开发可扩展性强，成本极低，目前工具支持的语言有PHP，Java(JSP)
