@@ -81,6 +81,127 @@ Example:
 
 ## 高级用法+案例分析
 
-高级用法请参考我的博客
+### 高级用法
+
+`以下均以Java作为示例`​
+
+#### 高扩展性
+
+很简单的自定义，如果需要自定义一些匹配规则，首先可以在这里加入
+
+![image](https://zjacky-blog.oss-cn-beijing.aliyuncs.com/image-20240929002903-ypqa197.png)​
+
+‍
+
+其次如果需要新增漏洞类型，只需要三步(这里以Sql为例)
+
+1. 新建SQL目录
+2. 定义一个方法叫 SqlCheck
+3. 写一个sqlcheck.txt(生成的文件名) + 你自定义的规则
+4. 最后在这里加入包名+方法名即可
+
+![image](https://zjacky-blog.oss-cn-beijing.aliyuncs.com/image-20240929003143-7v37o9w.png)​
+
+‍
+
+```go
+package SqlTest
+
+import (
+	"CodeScan/FindFile"
+	"fmt"
+)
+
+func SqlCheck(dir string) {
+	FindFile.FindFileByJava(dir, "fastjson.txt", []string{".parseObject("})
+	fmt.Println("SqlCheck分析完成")
+
+}
+
+```
+
+‍
+
+#### 扫描位置
+
+在打一些闭源代码的时候经常就一个Jar或者Class，反编译的时候会把依赖进行一起反编译，所以为了避免扫描一些依赖的误报，在工具中自带的黑名单中会过滤掉如下黑名单的包名，需要自定义的时候可自行修改，位置在`CommonVul/Rule/MatchPathRule.go`​
+
+```go
+var PathBlackJava = []string{
+	"apache", "lombok", "microsoft", "solr",
+	"amazonaws", "c3p0", "jodd", "afterturn", "hutool",
+	"javassist", "alibaba", "aliyuncs", "javax", "jackson",
+	"bytebuddy", "baomidou", "google", "netty", "redis", "mysql",
+	"logback", "ognl", "oracle", "sun", "junit", "reactor", "github",
+	"mchange", "taobao", "nimbusds", "opensymphony", "freemarker", "java", "apiguardian", "hibernate", "javassist", "jboss", "junit", "mybatis",
+	"springframework", "slf4j",
+}
+```
+
+所以这也导致了一个问题，不能从顶层上直接扫描
+
+![image](https://zjacky-blog.oss-cn-beijing.aliyuncs.com/image-20240929124102-qjfancc.png)
+
+`请把CodeScan放在Net同级目录下扫描(否则会忽略掉直接一个Java目录)`​
+
+请`-d`​后面的参数尽量在`/src/main/java`​之后，比如这里就需要把CodeScan放到`net`​目录下开始扫描
+
+```bash
+CodeScan_windows_amd64.exe -L java -d ./net
+```
+
+#### 过滤字符串(只写了JSP + PHP)
+
+比如现在有一个代码百分百为鉴权代码在JSP中
+
+```java
+<%@ include file="../../common/js/CheckSession.jsp"%>
+```
+
+此时可以用一下功能来进行快速获取未鉴权代码
+
+```bash
+CodeScan_windows_amd64.exe -d ./yuan -m "CheckSession.jsp"
+```
+
+此时会将不存在这个代码的文件都放到`NoAuthDir`​目录中，然后可以再扫一遍就可以立刻定位到存在未鉴权并且存在Sink点的函数文件了
+
+```bash
+CodeScan_windows_amd64.exe -L java -d ./NoAuthDir
+```
+
+‍
+
+#### 静态分析依赖情况
+
+只需要在CodeScan的目录下放入EvilJarList.txt即可匹配出来
+
+`EvilJarList.txt`​ 内容为存在可打漏洞的`Jar`​,模版如下
+
+```bash
+fastjson-1.2.47.jar
+resin-4.0.63.jar
+jackson-core-2.13.3.jar
+c3p0-0.9.5.2.jar
+commons-beanutils-1.9.4.jar
+commons-beanutils-1.9.3.jar
+commons-beanutils-1.9.2.jar
+commons-collections-3.2.1.jar
+mysql-connector-java-8.0.17.jar
+commons-collections4-4.0.jar
+shiro-core-1.10.1.jar
+aspectjweaver-1.9.5.jar
+rome-1.0.jar
+xstream-1.4.11.1.jar
+sqlite-jdbc-3.8.9.jar
+vaadin-server-7.7.14.jar
+hessian-4.0.63.jar
+```
+
+‍
+案例请参考我的博客
+```bash
+https://zjackky.github.io/post/develop-codescan-zwcz53.html
+```
 
 ‍
