@@ -14,7 +14,7 @@ func findSqlByCode(dir string) {
 	selectList := []string{}
 	var lastFile string // 记录上一次输出的文件，用于控制输出格式
 
-	keywords := []string{"'${", "= ${", "like '%\" +", ".executeQuery(", ".executeUpdate(", "order by ${", "createNativeQuery(", "execNativeSql(", ".createSQLQuery(", ".addOrder(", "<include"}
+	keywords := []string{"'${", "= ${", "like '%\" +", ".executeQuery(", "@RequestParam(\"sql\")", ".executeUpdate(", "order by ${", "createNativeQuery(", "execNativeSql(", ".createSQLQuery(", ".addOrder(", "<include"}
 
 	// 使用 Walk 函数遍历目录，查找所有的 .java 文件
 	err := filepath.Walk(dir, func(path string, f fs.FileInfo, err error) error {

@@ -3,7 +3,7 @@ package Rule
 var JavaUploadRuleList = []string{
 	"Streams.copy(",
 	".getOriginalFilename(", ".transferTo(",
-	"UploadedFile(", "FileUtils.copyFile(", "MultipartHttpServletRequest", ".getFileName(", ".saveAs(", ".getFileSuffix(", ".getFile",
+	"UploadedFile(", "FileUtils.copyFile(", "MultipartHttpServletRequest", ".getFileName(", ".saveAs(", ".getFileSuffix(", ".getFile", "MultipartFile file",
 }
 
 var PHPUploadRuleList = []string{

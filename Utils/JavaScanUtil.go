@@ -10,6 +10,7 @@ import (
 	"CodeScan/Java-Code/Frame_Analysis"
 	"CodeScan/Java-Code/JDBC"
 	"CodeScan/Java-Code/JNDI"
+	"CodeScan/Java-Code/JS"
 	"CodeScan/Java-Code/JarStatic"
 	"CodeScan/Java-Code/JavaSrciptShell"
 	"CodeScan/Java-Code/Log4j"
@@ -47,6 +48,7 @@ func Java_Codeing() {
 		JDBC.FindJDBC,
 		JavaSrciptShell.FindJavaSrciptShell,
 		JarStatic.Jarstaticer,
+		JS.Eval,
 	}
 
 	var wg sync.WaitGroup

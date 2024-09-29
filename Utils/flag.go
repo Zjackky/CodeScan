@@ -43,28 +43,6 @@ func parseFlag() {
 	filterfile := flag.String("m", "", "过滤的字符串")
 	//outdir := flag.String("o", "", "输出结果")
 	flag.Parse()
-	if *help == "" && *language == "" && *Dir == "" {
-		fmt.Println(`
-NAME:
-   CodeScan -> A Quick Code Scan Tool
-
-USAGE:
-   CodeScan -L language -d directory [-pb pathBlackRule] [-lb lineBlackRule] [-u uploadRule] [-r rceRule]
-
-VERSION:
-   1.3
-
-Author:
-   Zjacky
-   xiaoqiuxx
-
-OPTIONS:
-   --Language value, -L value    Code Type (such as : java, php, net)
-   --directory path, -d path     You Want To Scan (such as : ./com)
-   
-
-`)
-	}
 
 	if *language == "" && *filterfile == "" {
 		color.Red("请使用 -L 选项提供扫描语言")
