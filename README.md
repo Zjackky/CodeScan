@@ -1,14 +1,8 @@
-# README
-
-‍
-
 # CodeScan
 
 ## 工具概述
 
 该工具目的为对大多数不完整的代码以及依赖快速进行Sink点匹配来帮助红队完成快速代码审计，开发该工具的初衷是以`Sink`​到`Source`​的思路来开发，为了将所有可疑的Sink点匹配出来并且凭借第六感进行快速漏洞挖掘，并且该工具开发可扩展性强，成本极低，目前工具支持的语言有PHP，Java(JSP)
-
-‍
 
 ## 编译
 
@@ -18,14 +12,11 @@
 # 会生成所有版本在releases下
 ```
 
-‍
-
 ## 功能
 
 1. 框架识别
 2. 涵盖大部分漏洞的Sink点的匹配(如图)
-
-    ​![image](https://zjacky-blog.oss-cn-beijing.aliyuncs.com/image-20240928235812-5wlbnbb.png)​
+   ![image](https://zjacky-blog.oss-cn-beijing.aliyuncs.com/image-20240928235812-5wlbnbb.png)
 3. 可自定义定制化修改黑白名单内容
 4. 多模块化多语言化代码审计
 5. 进行融于鉴权代码的快速匹配抓取
@@ -33,8 +24,6 @@
 
 * mysqlconnect-->jdbc
 * Xstream --> xml/json
-
-‍
 
 ## 使用
 
@@ -64,21 +53,6 @@ Example:
 	CodeScan_windows_amd64.exe -d ./net -m "CheckSession.jsp"
 ```
 
-‍
-
-## TODO
-
-* [ ] 将结果从TXT转为Excel
-* [ ] Sink点继续完善
-* [ ] ASP
-
-## 支持项目
-
-* 如果有师傅发现Bug或者有更好的建议请提issue感谢
-* 要是各位师傅通过本人的小工具挖到一些好洞记得回头点点Stars诶
-
-‍
-
 ## 高级用法+案例分析
 
 ### 高级用法
@@ -91,7 +65,6 @@ Example:
 
 ![image](https://zjacky-blog.oss-cn-beijing.aliyuncs.com/image-20240929002903-ypqa197.png)​
 
-‍
 
 其次如果需要新增漏洞类型，只需要三步(这里以Sql为例)
 
@@ -101,8 +74,6 @@ Example:
 4. 最后在这里加入包名+方法名即可
 
 ![image](https://zjacky-blog.oss-cn-beijing.aliyuncs.com/image-20240929003143-7v37o9w.png)​
-
-‍
 
 ```go
 package SqlTest
@@ -119,8 +90,6 @@ func SqlCheck(dir string) {
 }
 
 ```
-
-‍
 
 #### 扫描位置
 
@@ -170,13 +139,11 @@ CodeScan_windows_amd64.exe -d ./yuan -m "CheckSession.jsp"
 CodeScan_windows_amd64.exe -L java -d ./NoAuthDir
 ```
 
-‍
-
 #### 静态分析依赖情况
 
 只需要在CodeScan的目录下放入EvilJarList.txt即可匹配出来
 
-`EvilJarList.txt`​ 内容为存在可打漏洞的`Jar`​,模版如下
+`EvilJarList.txt` 内容为存在可打漏洞的`Jar`,模版如下
 
 ```bash
 fastjson-1.2.47.jar
@@ -198,14 +165,22 @@ vaadin-server-7.7.14.jar
 hessian-4.0.63.jar
 ```
 
-‍
 #### 案例
 案例请参考我的博客
 ```bash
 https://zjackky.github.io/post/develop-codescan-zwcz53.html
 ```
 
-‍
+## TODO
+
+* [ ] 将结果从TXT转为Excel
+* [ ] Sink点继续完善
+* [ ] ASP
+
+## 支持项目
+
+* 如果有师傅发现Bug或者有更好的建议请提issue感谢
+* 要是各位师傅通过本人的小工具挖到一些好洞记得回头点点Stars诶
 
 ## 免责申明
 
@@ -215,7 +190,6 @@ https://zjackky.github.io/post/develop-codescan-zwcz53.html
 * 请您务必审慎阅读、充分理解各条款内容，特别是免除或者限制责任的条款，并选择接受或不接受
 * 除非您已阅读并接受本协议所有条款，否则您无权下载、安装或使用本工具
 * 您的下载、安装、使用等行为即视为您已阅读并同意上述协议的约束
-
 
 ## 更新日志
 
