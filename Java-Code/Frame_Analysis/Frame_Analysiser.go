@@ -84,7 +84,21 @@ func FrameAnalysiser(dir string) {
 	}
 
 	output := strings.Join(result, "\n")
-	err = ioutil.WriteFile("Frame_Analysiser.txt", []byte(output), 0644)
+	// 创建或打开输出文件，以追加模式写入
+	basedir := "./results/"
+
+	// 检查目录是否存在
+	if _, err := os.Stat(basedir); os.IsNotExist(err) {
+		// 如果目录不存在，则创建
+		err := os.MkdirAll(basedir, os.ModePerm)
+		if err != nil {
+			fmt.Println("Error creating directory:", err)
+			return
+		}
+	}
+	outputfile := "Frame_Analysiser.txt"
+	outputfile = basedir + outputfile
+	err = ioutil.WriteFile(outputfile, []byte(output), 0644)
 	if err != nil {
 		log.Fatal(err)
 	}

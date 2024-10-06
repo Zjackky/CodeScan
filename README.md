@@ -197,6 +197,9 @@ https://zjackky.github.io/post/develop-codescan-zwcz53.html
 
 * 开源
 
+**2024/10/7**
+
+* 将扫描结果写入result目录中
 
 ## 鸣谢
 

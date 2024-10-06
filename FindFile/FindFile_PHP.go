@@ -40,6 +40,13 @@ func FindFileByPHP(dir string, outputfile string, rules []string) {
 	Check(err)
 
 	// 创建或打开输出文件，以追加模式写入
+	basedir := "./results/"
+	err1 := os.MkdirAll(basedir, os.ModePerm)
+	if err1 != nil {
+		fmt.Println("Error creating directory:", err)
+		return
+	}
+	outputfile = basedir + outputfile
 	outputFile, err := os.OpenFile(outputfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	Check(err)
 	defer outputFile.Close() // 确保文件在函数返回前被关闭
